@@ -51,7 +51,7 @@ startBtn.onclick = function(event) {
                 clearInterval(checkIntervalId);
             };
         },
-        500
+        200
     );
   } 
 };

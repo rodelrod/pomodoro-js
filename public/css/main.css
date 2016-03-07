@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Digital7';
+  src: url('../assets/digital-7mono.ttf');
+}
+
+.counter {
+  font-family: 'Digital7';
+  font-size: 36pt;
+  height: 42px;
+}
