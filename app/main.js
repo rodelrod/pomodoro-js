@@ -4,21 +4,28 @@ var startBtn = document.getElementById("start-button");
 var stopBtn = document.getElementById("stop-button");
 var minutesDisplay = document.getElementById("minutes");
 var secondsDisplay = document.getElementById("seconds");
-var pomodoroDuration = 25;   // Hard coded, for now
+var alarmSound = document.getElementById("alarm-sound");
+var tickingSound = document.getElementById("ticking-sound");
+var volumeRange = document.getElementById("volume-range");
+var pomodoroDuration = 1;   // Hard coded, for now
 var startTime = 0;  // initialized with 0 (no start time)
+var timeLeft = null;
 var checkIntervalId = null;
 
 
-function updateDisplay(startTime) {
-    var currentTime = new Date(Date.now());
-    timeLeft = utils.remainingTime(
-        pomodoroDuration,
-        startTime,
-        currentTime
-    );
-    minutesDisplay.textContent = utils.remainingMinutes(timeLeft);
-    secondsDisplay.textContent = utils.remainingSeconds(timeLeft);
-    console.log("time left = " + timeLeft);
+window.onload = function () {
+    resetTimer(pomodoroDuration);
+}
+
+function resetTimer(pomodoroDuration) {
+    minutesDisplay.textContent = utils.pad(pomodoroDuration);
+    secondsDisplay.textContent = "00";
+    startTime = 0;
+}
+
+function updateDisplay(timeLeft) {
+    minutesDisplay.textContent = utils.pad(utils.remainingMinutes(timeLeft));
+    secondsDisplay.textContent = utils.pad(utils.remainingSeconds(timeLeft));
 }
 
 startBtn.onclick = function(event) {
@@ -26,14 +33,26 @@ startBtn.onclick = function(event) {
     // Pomodoro already in action
     return null;
   } else {
+    tickingSound.volume = volumeRange.value;
+    tickingSound.play();
+    utils.fadeOut(tickingSound, volumeRange.value);
     startTime = new Date(Date.now());
     checkIntervalId = setInterval(
         function () {
-           return updateDisplay(startTime);
+            timeLeft = utils.remainingTime(
+                pomodoroDuration,
+                startTime,
+                new Date(Date.now())
+            );
+            updateDisplay(timeLeft);
+            /* Stop updating the display once we reach 0 */
+            if (timeLeft == 0) {
+                alarmSound.play();
+                clearInterval(checkIntervalId);
+            };
         },
         500
     );
-    // TODO: this check keeps going forever even after the end of the pomodoro (until someone says stop).
   } 
 };
 
@@ -43,9 +62,7 @@ stopBtn.onclick = function(event) {
     return null;
   } else {
     clearInterval(checkIntervalId);
-    startTime = 0;
-    minutesDisplay.text = pomodoroDuration;
-    secondsDisplay.text = 0;
+    resetTimer(pomodoroDuration)
   } 
 };
 

@@ -32,3 +32,17 @@ test("calculates remaining seconds on a running timer", function(t) {
     );
     t.end();
 });
+
+test("pads number with leading zero", function (t) {
+    t.equal(
+        tested.pad(4),
+        '04',
+        "single-digit number gets padded with one leading zero"
+    );
+    t.equal(
+        tested.pad(15),
+        '15',
+        "double-digit number does not get padded."
+    );
+    t.end();
+});
