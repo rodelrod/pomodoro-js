@@ -7,7 +7,7 @@ var secondsDisplay = document.getElementById("seconds");
 var alarmSound = document.getElementById("alarm-sound");
 var tickingSound = document.getElementById("ticking-sound");
 var volumeRange = document.getElementById("volume-range");
-var pomodoroDuration = 1;   // Hard coded, for now
+var pomodoroDuration = 25;   // Hard coded, for now
 var startTime = 0;  // initialized with 0 (no start time)
 var timeLeft = null;
 var checkIntervalId = null;
@@ -29,31 +29,34 @@ function updateDisplay(timeLeft) {
 }
 
 startBtn.onclick = function(event) {
-  if (startTime != 0) {
-    // Pomodoro already in action
-    return null;
-  } else {
-    tickingSound.volume = volumeRange.value;
-    tickingSound.play();
-    utils.fadeOut(tickingSound, volumeRange.value);
-    startTime = new Date(Date.now());
-    checkIntervalId = setInterval(
-        function () {
-            timeLeft = utils.remainingTime(
-                pomodoroDuration,
-                startTime,
-                new Date(Date.now())
-            );
-            updateDisplay(timeLeft);
-            /* Stop updating the display once we reach 0 */
-            if (timeLeft == 0) {
-                alarmSound.play();
-                clearInterval(checkIntervalId);
-            };
-        },
-        200
-    );
-  } 
+    // checking time every 500 ms will lead to jumpy updates but keeps 
+    // CPU usage down. Fell free to lower this to 100 ms or whatever.
+    var poll_interval = 500
+    if (startTime != 0) {
+      // Pomodoro already in action
+      return null;
+    } else {
+        tickingSound.volume = volumeRange.value;
+        tickingSound.play();
+        utils.fadeOut(tickingSound, volumeRange.value);
+        startTime = new Date(Date.now());
+        checkIntervalId = setInterval(
+            function () {
+                timeLeft = utils.remainingTime(
+                    pomodoroDuration,
+                    startTime,
+                    new Date(Date.now())
+                );
+                updateDisplay(timeLeft);
+                /* Stop updating the display once we reach 0 */
+                if (timeLeft == 0) {
+                    alarmSound.play();
+                    clearInterval(checkIntervalId);
+                };
+            },
+            500
+        );
+    } 
 };
 
 stopBtn.onclick = function(event) {

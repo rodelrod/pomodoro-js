@@ -6,5 +6,9 @@
 .counter {
   font-family: 'Digital7';
   font-size: 36pt;
+  /* The Digital7 font doesn't seem to have the right
+   * metadata or whatever so we need to set the div
+   * height explicitely or it will be to short.
+   */
   height: 42px;
 }
