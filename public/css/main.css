@@ -5,6 +5,15 @@
 
 body {
   background-color: hsla(0, 0%, 19%, 1.0);
+  margin: 0;
+}
+
+.column {
+  display: inline-block;
+}
+
+.countercol {
+  padding: 8;
 }
 
 .counter {
@@ -12,9 +21,10 @@ body {
   font-size: 60pt;
   /* The Digital7 font doesn't seem to have the right
    * metadata or whatever so we need to set the div
-   * height explicitely or it will be to short.
+   * height explicitely or it will be too short.
    */
   height: 72px;
   color: hsla(63,100%,58%,1);
   text-shadow: 0 0 8px hsla(63,100%,58%,1);
 }
+
