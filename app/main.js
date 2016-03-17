@@ -1,7 +1,7 @@
 utils = require('./utils');
 
-var startBtn = document.getElementById("start-button");
-var stopBtn = document.getElementById("stop-button");
+var toggleBtn = document.getElementById("toggle-timer-button");
+var doneBtn = document.getElementById("done-button");
 var minutesDisplay = document.getElementById("minutes");
 var secondsDisplay = document.getElementById("seconds");
 var alarmSound = document.getElementById("alarm-sound");
@@ -15,7 +15,7 @@ var checkIntervalId = null;
 
 window.onload = function () {
     resetTimer(pomodoroDuration);
-}
+};
 
 function resetTimer(pomodoroDuration) {
     minutesDisplay.textContent = utils.pad(pomodoroDuration);
@@ -28,14 +28,18 @@ function updateDisplay(timeLeft) {
     secondsDisplay.textContent = utils.pad(utils.remainingSeconds(timeLeft));
 }
 
-startBtn.onclick = function(event) {
+toggleBtn.onclick = function(event) {
     // checking time every 500 ms will lead to jumpy updates but keeps 
     // CPU usage down. Fell free to lower this to 100 ms or whatever.
     var poll_interval = 500
     if (startTime != 0) {
+        toggleBtn.textContent = "Start timer";
       // Pomodoro already in action
-      return null;
+      clearInterval(checkIntervalId);
+      resetTimer(pomodoroDuration);
     } else {
+        // Pomodoro wasn't started yet
+        toggleBtn.textContent = "Stop timer";
         tickingSound.volume = volumeRange.value;
         tickingSound.play();
         utils.fadeOut(tickingSound, volumeRange.value);
@@ -52,20 +56,21 @@ startBtn.onclick = function(event) {
                 if (timeLeft == 0) {
                     alarmSound.play();
                     clearInterval(checkIntervalId);
-                };
+                }
             },
             500
         );
     } 
 };
 
-stopBtn.onclick = function(event) {
+doneBtn.onclick = function(event) {
   if (startTime == 0) {
     // Pomodoro wasn't started yet
     return null;
   } else {
+    // Pomodoro already in action
     clearInterval(checkIntervalId);
-    resetTimer(pomodoroDuration)
-  } 
+    resetTimer(pomodoroDuration);
+  }
 };
 
