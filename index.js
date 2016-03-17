@@ -8,13 +8,18 @@ var mainWindow = null;
 
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
-        width: 300,
-        height: 200,
+        width: 340,
+        height: 160,
+        resizable: false,
+        /* redundant instructions because resizable wasn't working */
+        minWidth: 340,
+        minHeight: 160,
+        maxWidth: 340,
+        maxHeight: 160,
         icon: __dirname + '/public/assets/icons/clock-128x128.png'
-    })                                             
-                                                   
-mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+    });
+    mainWindow.loadURL('file://' + __dirname + '/public/index.html');
 
-  //mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
 
-})
+});
