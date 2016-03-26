@@ -1,4 +1,5 @@
 utils = require('./utils');
+Sortable = require('sortablejs');
 
 var toggleBtn = document.getElementById("toggle-timer-button");
 var doneBtn = document.getElementById("done-button");
@@ -15,6 +16,7 @@ var checkIntervalId = null;
 
 window.onload = function () {
     resetTimer(pomodoroDuration);
+    setupTodoList();
 };
 
 function resetTimer(pomodoroDuration) {
@@ -26,6 +28,17 @@ function resetTimer(pomodoroDuration) {
 function updateDisplay(timeLeft) {
     minutesDisplay.textContent = utils.pad(utils.remainingMinutes(timeLeft));
     secondsDisplay.textContent = utils.pad(utils.remainingSeconds(timeLeft));
+}
+
+function setupTodoList() {
+    var editable = document.getElementById('editable');
+    var editableList = Sortable.create(editable, {
+        filter: '.js-remove',
+        onFilter: function (evt) {
+            var el = editableList.closest(evt.item); // get dragged item
+            el && el.parentNode.removeChild(el);
+        }
+    });
 }
 
 toggleBtn.onclick = function(event) {

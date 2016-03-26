@@ -48,6 +48,7 @@ body {
   font-family: "Verdana", sans-serif;
   font-size: inherit;
   color: inherit;
+  cursor: pointer;
   /*
    * hsla(
    *   hue degree: red 0, green 120, blue 240
@@ -85,4 +86,8 @@ body {
   padding: 5px 12px;
     margin: 5px;
   width: 88px;
+}
+
+.todo-list {
+
 }
