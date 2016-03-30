@@ -23,7 +23,7 @@ body {
 }
 
 .timer-col {
-  padding: 30px 8px;
+  padding: 20px 8px;
 }
 
 .counter {
@@ -45,7 +45,7 @@ body {
 }
 
 .button {
-  font-family: "Verdana", sans-serif;
+  font-family: inherit;
   font-size: inherit;
   color: inherit;
   cursor: pointer;
@@ -61,19 +61,19 @@ body {
   box-shadow: 1px 1px 1px 1px hsl(0,0%,25%);
   border: 1px solid hsl(0,0%,13%);
   background: hsl(0,0%,19%);
-  background: linear-gradient(top,  hsl(0,0%,32%),  hsl(0,0%,19%));
-  background: -ms-linear-gradient(top,  hsl(0,0%,32%),  hsl(0,0%,19%));
-  background: -webkit-linear-gradient(top, hsl(0,0%,32%),  hsl(0,0%,19%));
-  background: -moz-linear-gradient(top,  hsl(0,0%,32%),  hsl(0,0%,19%));
+  background: linear-gradient(top,  hsl(0,0%,25%),  hsl(0,0%,19%));
+  background: -ms-linear-gradient(top,  hsl(0,0%,25%),  hsl(0,0%,19%));
+  background: -webkit-linear-gradient(top, hsl(0,0%,25%),  hsl(0,0%,19%));
+  background: -moz-linear-gradient(top,  hsl(0,0%,25%),  hsl(0,0%,19%));
 }
 
 .button:hover {
   color: hsl(0,0%,70%);
-  background: hsl(0,0%,32%);
-  background: linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,32%));
-  background: -ms-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,32%));
-  background: -webkit-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,32%));
-  background: -moz-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,32%));
+  background: hsl(0,0%,25%);
+  background: linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,25%));
+  background: -ms-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,25%));
+  background: -webkit-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,25%));
+  background: -moz-linear-gradient(top,  hsl(0,0%,19%),  hsl(0,0%,25%));
 }
 
 #toggle-timer-button {
@@ -84,10 +84,34 @@ body {
 
 #done-button {
   padding: 5px 12px;
-    margin: 5px;
+  margin: 5px;
   width: 88px;
 }
 
-.todo-list {
+/*
+ * Customize Add Task modal
+ */
+.vex {
+  position: absolute;
+}
+.vex.vex-theme-default {
+  padding: 30px 10px;
+}
 
+.vex.vex-theme-default .vex-content {
+  background: #000;
+  font-family: inherit;
+  border-radius: 3px;
+  background-color: hsla(0, 0%, 45%, 0.95);
+  color: hsl(0, 0%, 90%);
+}
+
+.vex.vex-theme-default .vex-dialog-button.vex-dialog-button-primary {
+  background: hsl(0, 0%, 19%);
+}
+
+.vex.vex-theme-default .vex-dialog-form .vex-dialog-input input[type="text"]:focus {
+  -webkit-box-shadow: inset 0 0 2px hsl(0, 0%, 19%);
+  -moz-box-shadow: inset 0 0 2px hsl(0, 0%, 19%);
+  box-shadow: inset 0 0 2px hsl(0, 0%, 19%);
 }

@@ -1,5 +1,14 @@
 utils = require('./utils');
 Sortable = require('sortablejs');
+/*
+ * Load Vex JS and CSS
+ */
+// Fix for npm vex require: https://github.com/webpack/webpack/issues/1344
+vex = require('vex-js/js/vex.js');
+vex.dialog = require('vex-js/js/vex.dialog.js');
+require('vex-js/css/vex.css');
+require('vex-js/css/vex-theme-default.css');
+vex.defaultOptions.className = 'vex-theme-default';
 
 var toggleBtn = document.getElementById("toggle-timer-button");
 var doneBtn = document.getElementById("done-button");
@@ -8,6 +17,7 @@ var secondsDisplay = document.getElementById("seconds");
 var alarmSound = document.getElementById("alarm-sound");
 var tickingSound = document.getElementById("ticking-sound");
 var volumeRange = document.getElementById("volume-range");
+var addTaskBtn = document.getElementById("addTask");
 var pomodoroDuration = 25;   // Hard coded, for now
 var startTime = 0;  // initialized with 0 (no start time)
 var timeLeft = null;
@@ -16,7 +26,7 @@ var checkIntervalId = null;
 
 window.onload = function () {
     resetTimer(pomodoroDuration);
-    setupTodoList();
+    setupTaskList();
 };
 
 function resetTimer(pomodoroDuration) {
@@ -30,16 +40,6 @@ function updateDisplay(timeLeft) {
     secondsDisplay.textContent = utils.pad(utils.remainingSeconds(timeLeft));
 }
 
-function setupTodoList() {
-    var editable = document.getElementById('editable');
-    var editableList = Sortable.create(editable, {
-        filter: '.js-remove',
-        onFilter: function (evt) {
-            var el = editableList.closest(evt.item); // get dragged item
-            el && el.parentNode.removeChild(el);
-        }
-    });
-}
 
 toggleBtn.onclick = function(event) {
     // checking time every 500 ms will lead to jumpy updates but keeps 
@@ -85,5 +85,31 @@ doneBtn.onclick = function(event) {
     clearInterval(checkIntervalId);
     resetTimer(pomodoroDuration);
   }
+};
+
+/*
+ *  Task List
+ */
+
+function setupTaskList() {
+    var editable = document.getElementById('editable');
+    var editableList = Sortable.create(editable, {
+        animation: 150,
+        filter: '.js-remove',
+        onFilter: function (evt) {
+            var el = editableList.closest(evt.item); // get dragged item
+            el && el.parentNode.removeChild(el);
+        }
+    });
+}
+
+addTaskBtn.onclick = function () {
+    vex.dialog.prompt({
+        message: 'Gimme a task',
+        placeholder: 'Name of task',
+        callback: function(value) {
+            return console.log(value);
+        }
+    });
 };
 
