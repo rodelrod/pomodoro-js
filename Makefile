@@ -9,7 +9,7 @@ all: move-html move-css pack-js
 test:
 	@npm test
 
-build-electron:
+electron-build:
 	electron-packager --platform=linux --arch=x64 --out=electron-build --overwrite . PomodoroTimer
 
 # Move static HTML and CSS files from SRC to BUILD
