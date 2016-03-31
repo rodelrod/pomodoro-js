@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Digital7';
-  src: url('../assets/digital-7mono.ttf');
+  src: url('../../public/assets/digital-7mono.ttf');
 }
 
 body {

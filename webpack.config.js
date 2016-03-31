@@ -2,9 +2,9 @@
 require('es6-promise').polyfill();
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
-    entry: "./app/main.js",
+    entry: "./src/js/main.js",
     output: {
-        filename: "public/bundle.js"
+        filename: "public/js/bundle.js"
     },
     module: {
         loaders: [

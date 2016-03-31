@@ -1,13 +1,11 @@
 {
-  "name": "pomodoro-react",
+  "name": "pomodoro-js",
   "version": "0.0.0",
-  "description": "Pomodoro timer built in React.js",
-  "main": "index.js",
+  "description": "Pomodoro timer built in JS/Electron",
+  "main": "electron.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "electron-packager --platform=linux --arch=x64 . PomodoroTimer",
-    "pack": "watch -n5 ./checknew.sh"
+    "test": "tape src/test*.js",
+    "start": "electron ."
   },
   "author": "Rod Daunoravicius",
   "license": "ISC",
