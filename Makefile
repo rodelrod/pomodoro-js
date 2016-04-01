@@ -4,7 +4,7 @@ SCRIPTDIR := $(shell pwd)
 SRC := $(SCRIPTDIR)/src
 BUILD := $(SCRIPTDIR)/public
 
-html: move-html move-css pack-js
+html: pack-js
 
 electron: html
 	electron-packager --platform=linux --arch=x64 --out=electron-build --overwrite . PomodoroTimer
@@ -12,25 +12,8 @@ electron: html
 test:
 	@npm test
 
-# Move static HTML and CSS files from SRC to BUILD
-# ------------------------------------------------
-
-# HTML
-SRC_HTML := $(wildcard $(SRC)/*.html)
-BUILD_HTML := $(patsubst $(SRC)/%,$(BUILD)/%,$(SRC_HTML))
-
-move-html: $(BUILD_HTML)
-$(BUILD)/%.html: $(SRC)/%.html
-	cp -f $< $@
-
-# CSS
-SRC_CSS := $(wildcard $(SRC)/css/*.css)
-BUILD_CSS := $(patsubst $(SRC)/%,$(BUILD)/%,$(SRC_CSS))
-
-move-css: $(BUILD_CSS)
-$(BUILD)/css/%.css: $(SRC)/css/%.css
-	cp -f $< $@
-
+start:
+	@npm start
 
 # Webpack JS and associated CSS files
 # -----------------------------------
@@ -42,11 +25,11 @@ $(BUNDLES): $(JSSOURCES)
 	webpack -d
 
 
-# Run make automatically when watched source files change
-# -------------------------------------------------------
+# Build HTML version automatically when watched source files change
+# -----------------------------------------------------------------
 watch:
 	watchman watch-project $(SCRIPTDIR)
-	watchman -- trigger $(SCRIPTDIR) remake 'src/js/*.js' 'src/css/*.css' 'src/*.html' -- make all
+	watchman -- trigger $(SCRIPTDIR) remake 'src/js/*.js' -- make html
 
 
 .PHONY: test watch html electron move-html move-css pack-js
