@@ -15,6 +15,9 @@ test:
 start:
 	@npm start
 
+start:
+	@npm install
+
 # Webpack JS and associated CSS files
 # -----------------------------------
 BUNDLES := $(addprefix $(BUILD)/, js/bundle.js js/bundle.js.map css/bundle.css css/bundle.css.map) 

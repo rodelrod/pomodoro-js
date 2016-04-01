@@ -18,7 +18,7 @@ Install
 
 Install the dependencies:
 
-    npm install
+    make install
 
 
 Build for the browser (static version with an entry under public/index.html):
@@ -28,7 +28,7 @@ Build for the browser (static version with an entry under public/index.html):
 
 Build for electron (desktop app built under electron-build/):
 
-    make electron-build
+    make electron
 
 
 Currently it builds for 64-bit Linux. Change the electron-package options in the Makefile to build for other architectures.
