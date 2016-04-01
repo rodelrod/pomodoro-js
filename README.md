@@ -23,7 +23,7 @@ Install the dependencies:
 
 Build for the browser (static version with an entry under public/index.html):
 
-    make all
+    make html
 
 
 Build for electron (desktop app built under electron-build/):

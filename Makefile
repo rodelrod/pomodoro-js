@@ -4,13 +4,13 @@ SCRIPTDIR := $(shell pwd)
 SRC := $(SCRIPTDIR)/src
 BUILD := $(SCRIPTDIR)/public
 
-all: move-html move-css pack-js
+html: move-html move-css pack-js
+
+electron: html
+	electron-packager --platform=linux --arch=x64 --out=electron-build --overwrite . PomodoroTimer
 
 test:
 	@npm test
-
-electron-build:
-	electron-packager --platform=linux --arch=x64 --out=electron-build --overwrite . PomodoroTimer
 
 # Move static HTML and CSS files from SRC to BUILD
 # ------------------------------------------------
@@ -49,4 +49,4 @@ watch:
 	watchman -- trigger $(SCRIPTDIR) remake 'src/js/*.js' 'src/css/*.css' 'src/*.html' -- make all
 
 
-.PHONY: test build watch move-html move-css pack-js
+.PHONY: test watch html electron move-html move-css pack-js
